@@ -1,0 +1,81 @@
+https://www.hackerrank.com/contests/mid-term-exam-a-basic-data-structures-a-batch-03/challenges/browser-history-1
+
+solution
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    list<int> list1;
+    list<string> list;
+  int i=0;
+    while (true)
+    {
+        i=i+1;
+        string s; cin>>s;
+        if(s=="end")
+        {
+            break;
+        }
+        list.push_back(s);
+        list1.push_back(i);
+    }
+    i=i-1;
+    int q; cin>>q;
+    while (q--)
+    {
+       string cmd;
+       cin>> cmd;
+       int pos;
+       if(cmd== "visit")
+       {
+            string qur; cin>>qur;
+            auto it=find(list.begin(), list.end(), qur);
+            // cout<<*it<<endl;
+            if(it== list.end())
+            {
+                cout<<"Not Available"<<endl;
+            }
+            else
+            {
+                pos=distance(list.begin(), it);
+            cout<<*next(list.begin(),pos)<<endl;
+            }
+            
+       }
+       else if(cmd=="prev")
+       {
+            pos=pos-1;
+            if(pos>=0)
+            {
+                cout<<*next(list.begin(),pos)<<endl;
+            
+            }
+            else if(pos<0)
+            {
+                pos=0;
+                cout<<"Not Available"<<endl;
+            }
+       }
+       else if(cmd=="next")
+       {
+            pos=pos+1;
+            if(pos>=i)
+            {
+                pos=i-1;
+                // cout<<pos<<" "<<i<<" ";
+                cout<<"Not Available"<<endl;
+            }
+            else
+            {
+                cout<<*next(list.begin(),pos)<<endl;
+            }
+        
+       }
+
+
+    }
+    
+   
+    return 0;
+}
