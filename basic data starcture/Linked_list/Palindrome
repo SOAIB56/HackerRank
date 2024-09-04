@@ -1,0 +1,104 @@
+https://www.hackerrank.com/contests/mid-term-exam-a-basic-data-structures-a-batch-03/challenges/palindrome-262-2/problem
+
+solution
+
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{
+    public:
+    int val;
+    node * next;
+    node (int val)
+    {
+        this->next= NULL;
+        this->val= val;
+    }
+};
+void take_in(node*& head, node*& tail, int val)
+{
+    node* newnode= new node(val);
+    if(head== NULL)
+    {
+        head=newnode;
+        tail=newnode;
+        return;
+    }
+    else 
+    {
+        tail->next=newnode;
+        tail=newnode;
+    }
+}
+void  reverse (node *&newhead,node* cur)
+{
+    if(cur->next == NULL)
+    {
+        newhead= cur;
+        return;
+    }
+     reverse (newhead, cur->next);
+     cur->next->next=cur;
+     cur->next= NULL;
+
+}
+void  print(node*newhead)
+{
+node* temp=newhead;
+while (temp != NULL)
+    {
+        cout<<temp->val<<" ";
+        temp=temp->next;
+    }
+}
+void check_palindrome(node *head, node *newhead)
+{
+    bool flag= true;
+    while (head != NULL)
+    {
+        if(head->val != newhead->val)
+        {
+            flag= false;
+            break;
+        }
+       head= head->next;
+       newhead= newhead->next;
+       
+    }
+    if(flag== false )
+       {
+         cout<<"NO";
+       }
+       else 
+       {
+        cout<<"YES";
+       }
+    
+}
+int main()
+{
+    node *head= NULL;
+    node *tail= NULL;
+    while (true)
+    {
+        int val; cin>> val;
+        if(val== -1)
+        {
+            break;
+        }
+        take_in(head,  tail, val);
+    }
+    node * newhead= NULL;
+    node * newtail= NULL;
+    node *temp= head;
+    while (temp != NULL)
+    {
+        take_in(newhead,  newtail, temp->val);
+       temp= temp->next;
+    }
+    reverse (newhead, newhead);
+    check_palindrome(head, newhead);
+    //  print(newhead);
+    
+    return 0;
+}
