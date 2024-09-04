@@ -1,0 +1,130 @@
+https://www.hackerrank.com/contests/mid-term-exam-a-basic-data-structures-a-batch-03/challenges/queries-again-1/submissions/code/1382140722
+
+
+solution
+
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{
+    public:
+        int val;
+        node *next;
+        node *prev;
+        node(int val)
+        {
+            this->val=val;
+            this->next=NULL;
+            this->prev=NULL;
+        }
+};
+int size(node* head)
+    {
+        node*temp=head;
+        int cnt=0;
+        while (temp != NULL)
+        {
+            cnt++;
+           temp=temp->next;
+        }
+        return cnt;
+        
+    }
+void  insert_at_head(node *&head, node *&tail, int val)
+{
+node *newnode= new node( val);
+if(head== NULL)
+{
+    head=newnode;
+    tail=newnode;
+    return;
+}
+else 
+
+{
+    newnode->next=head;
+    head->prev=newnode;
+    head=newnode;
+}
+}
+void print(node *head)
+{
+    node *temp= head;
+    cout<<"L -> ";
+    while (temp!= NULL)
+    {
+     cout<<temp->val<<" ";
+     temp=temp->next;
+    }
+    cout<<endl;
+}
+void reverse (node * tail)
+{
+    node *temp= tail;
+    cout<<"R -> ";
+    while (tail != NULL)
+    {
+        cout<<tail->val<<" ";
+        tail=tail->prev;
+    }
+    cout<<endl;
+    
+}
+ void insert_at_tail(node *&head, node *&tail,int val)
+ {
+    node *newnode= new node( val);
+    tail->next=newnode;
+    newnode->prev= tail;
+    tail=newnode;
+ }
+void    insert_at_pos(node *&head,node *& tail,int val,int pos)
+{
+     node *newnode= new node( val);
+     node *temp=head;
+     for (int  i =1;i < pos; i++)
+     {
+        temp=temp->next;
+     }
+     newnode->next=temp->next;
+     newnode->prev=temp;
+     temp->next->prev=newnode;
+     temp->next=newnode;
+     
+}
+int main()
+{
+    node *head= NULL;
+    node *tail= NULL;
+    int q; cin>> q;
+
+    while (q--)
+    {
+        int sz= size(head);
+        int pos; cin>> pos;
+        int val; cin>> val;
+        if(pos>sz)
+        {
+            cout<<"Invalid"<<endl;
+        }
+        else
+        {
+             if(pos==0)
+            {
+                insert_at_head(head, tail, val);
+            }
+            else if(pos== sz)
+            {
+                insert_at_tail(head, tail, val);
+            }
+            else if(pos>0 && pos<sz)
+            {
+                insert_at_pos(head, tail, val, pos);
+            }
+            print(head);
+            reverse(tail);
+        }
+
+       
+    }
+    return 0;
+}
