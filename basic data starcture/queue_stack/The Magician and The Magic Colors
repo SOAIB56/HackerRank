@@ -1,0 +1,86 @@
+PROBLEM LINK: https://www.hackerrank.com/contests/assignment-03-a-basic-data-structures-a-batch-03/challenges/magic-colors-and-the-magician/problem
+
+
+SOLUTIONN
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+   
+    int test; cin>>test;
+    while (test--)
+    {
+         queue<char >q;
+         int n; cin>> n;
+         while (n--)
+         {
+            char c; cin>> c;
+            q.push(c);
+         }
+        queue<char>mxq;
+        queue<char>unq;
+        while (! q.empty())
+        {
+            char clr1;
+            char clr2;
+            clr1=q.front();q.pop();
+             clr2=q.front();
+            if(! q.empty())
+            {
+                 q.pop();
+                if(clr1=='R' && clr2=='G')
+                {
+                    unq.push('Y');
+                }
+                else if(clr1=='G' && clr2=='R')
+                {
+                    unq.push('Y');
+                }
+                else if(clr1=='R' && clr2=='B')
+                {
+                    unq.push('P');
+                }
+                else if(clr1=='B' && clr2=='R')
+                {
+                    unq.push('P');
+                }
+                else if(clr1=='B' && clr2=='G')
+                {
+                   unq.push('C');
+                }
+                else if(clr1=='G' && clr2=='B')
+                {
+                    unq.push('C');
+                }
+            }
+            else 
+            {
+               unq.push(clr1);
+            } 
+        } 
+        while (!unq.empty())
+        {
+        char cc1=unq.front();
+        char cc2;
+         unq.pop();
+         if(!unq.empty())
+         {
+            cc2=unq.front();
+            unq.pop();
+            if(cc1!= cc2)
+            {
+                cout<<cc1<<cc2;
+            }
+            else continue;
+
+         }
+         else cout<<cc1;
+       
+        }
+        
+        cout<<endl;   
+    }
+    
+    return 0;
+}
