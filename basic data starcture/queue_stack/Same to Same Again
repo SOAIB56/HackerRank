@@ -1,0 +1,161 @@
+problem link: https://www.hackerrank.com/contests/assignment-03-a-basic-data-structures-a-batch-03/challenges/same-to-same-again-1
+
+solution
+
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{
+    public:
+    int val;
+    node *next;
+    node *prev;
+    node(int val)
+    {
+        this->val=val;
+        this->next= NULL;
+        this->prev= NULL;
+    }
+};
+class mystack
+{
+    public:
+    node *head= NULL;
+    node *tail= NULL;
+    int sz=0;
+    //fun
+    int size()
+    {
+        return sz;
+    }
+    bool empty()
+    {
+        if(sz==0) return true;
+        else return false;
+    }
+    int top()
+    {
+        return tail->val;
+    }
+    void push(int data)
+    {
+        sz++;
+        node *newnode= new node (data);
+        if(head== NULL)
+        {
+            head= newnode;
+            tail= newnode;
+        }
+        else
+        {
+        tail->next= newnode;
+        newnode->prev= tail;
+        newnode->next= NULL;
+        tail= newnode;
+        }
+    }
+    void pop()
+    {
+        sz--;
+        node * delnode= tail;
+        tail= tail->prev;
+        if(tail== NULL)
+        {
+            head= NULL;
+        }
+        delete delnode;
+    }
+};
+class myqueue
+{
+    public:
+    node *head= NULL;
+    node *tail= NULL;
+    int sz=0;
+    //fun
+    int size()
+    {
+        return sz;
+    }
+    bool empty()
+    {
+        if(sz==0) return true;
+        else return false;
+    }
+    int front()
+    {
+        return head->val;
+    }
+    void push(int data)
+    {
+        sz++;
+        node *newnode= new node (data);
+        if(head== NULL)
+        {
+            head= newnode;
+            tail= newnode;
+        }
+        else
+        {
+        tail->next= newnode;
+        newnode->prev= tail;
+        newnode->next= NULL;
+        tail= newnode;
+        }
+    }
+    void pop()
+    {
+        sz--;
+        node * delnode= head;
+       head= head->next;
+        if(head== NULL)
+        {
+            tail= NULL;
+        }
+        delete delnode;
+    }
+};
+
+int main()
+{
+    mystack st;
+    myqueue q;
+    int n,m;
+    cin>>n>>m;
+    while (n--)
+    {
+       int x; cin>>x;
+       st.push(x);
+    }
+    while (m--)
+    {
+       int x; cin>>x;
+       q.push(x);
+    }
+   if(st.size() != q.size())
+   {
+    cout<<"NO";
+   }
+   else
+   {
+    bool flag = true;
+
+        while (!st.empty())
+        {
+            if (st.top() != q.front())
+            {
+                flag = false;
+                break;
+            }
+            st.pop();
+            q.pop();
+        }
+        if (flag == true)
+            cout << "YES" << endl;
+        else
+            cout << "NO" << endl;
+   }
+    
+    
+    return 0;
+}
