@@ -1,0 +1,46 @@
+problem link: https://www.hackerrank.com/contests/assignment-03-a-basic-data-structures-a-batch-03/challenges/same-to-same-again
+
+solution:
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    stack<int> st;
+    queue<int> qq;
+    int n, m;
+    cin>> n>>m;
+    while (n--)
+    {
+        int x;
+        cin>> x;
+        st.push(x);
+    }
+    while (m--)
+    {
+        int x;
+        cin>> x;
+        qq.push(x);
+    }
+    bool flag= true;
+    if(st.size() != qq.size())
+    {
+        flag= false;
+    }
+    else
+    {
+        while (! st.empty())
+        {
+           if(st.top() != qq.front())
+           {
+            flag = false;
+            break;
+           }
+           st.pop();
+           qq.pop();
+        } 
+    }
+    if(flag== true) cout<<"YES";
+    else cout<<"NO";
+    return 0;
+}
