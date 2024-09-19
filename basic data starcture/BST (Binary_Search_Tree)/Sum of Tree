@@ -1,0 +1,85 @@
+problem link: https://www.hackerrank.com/contests/assignment-04-a-basic-data-structures-a-batch-03/challenges/sum-of-tree/problem
+
+solution;
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{
+    public:
+    int val;
+    node * left;
+    node * right;
+    node (int val)
+    {
+        this->left= NULL;
+        this->right= NULL;
+        this->val= val;
+    }
+};
+node * take_input()
+{
+    int x; 
+    cin>> x;
+    node *root;
+    if( x== -1) root= NULL;
+    else
+    {
+        root= new node(x);
+    }
+    queue<node *>q;
+    if(root != NULL) q.push(root);
+    while (!q.empty())
+    {
+       node * p=q.front();
+       q.pop();
+
+       int l, r;
+       cin>>l>> r;
+       node *myleft;
+       node *myright;
+
+    
+       if(l==-1) myleft= NULL;
+       if(r==-1) myright= NULL;
+       if(l != -1) 
+       {
+        myleft= new node (l);
+        q.push(myleft);
+       }
+       if(r != -1)
+       {
+        myright= new node (r);
+        q.push(myright);
+       }
+          p->left= myleft;
+       p->right= myright;
+    }
+    return root;
+    
+
+}
+int sum_fun(node* root)
+{
+    if(root ==NULL)
+    {
+        return 0;
+    }
+    int l= sum_fun(root->left);
+    int r= sum_fun(root->right);
+    return root->val+l+r;
+}
+void check(node *root)
+{
+    if(root== NULL) return ;
+    check(root->left);
+    check(root->right);
+    cout<<root->val<< " ";
+}
+int main()
+{
+    node *root= take_input();
+    //check(root);
+    int sum= sum_fun(root);
+    cout<<sum;
+    return 0;
+}
