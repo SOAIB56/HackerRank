@@ -1,0 +1,100 @@
+problem link: https://www.hackerrank.com/contests/assignment-04-a-basic-data-structures-a-batch-03/challenges/level-nodes-2
+
+solution:
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{
+    public:
+    int val;
+    node * left;
+    node * right;
+    node (int val)
+    {
+        this->left= NULL;
+        this->right= NULL;
+        this->val= val;
+    }
+};
+node * take_input()
+{
+    int x; 
+    cin>> x;
+    node *root;
+    if( x== -1) root= NULL;
+    else
+    {
+        root= new node(x);
+    }
+    queue<node *>q;
+    if(root != NULL) q.push(root);
+    while (!q.empty())
+    {
+       node * p=q.front();
+       q.pop();
+
+       int l, r;
+       cin>>l>> r;
+       node *myleft;
+       node *myright;
+
+    
+       if(l==-1) myleft= NULL;
+       if(r==-1) myright= NULL;
+       if(l != -1) 
+       {
+        myleft= new node (l);
+        q.push(myleft);
+       }
+       if(r != -1)
+       {
+        myright= new node (r);
+        q.push(myright);
+       }
+          p->left= myleft;
+       p->right= myright;
+    }
+    return root;
+    
+
+}
+
+void check(node *root)
+{
+    if(root== NULL) return ;
+    check(root->left);
+    check(root->right);
+    cout<<root->val<< " ";
+}
+int h=0;
+int main()
+{
+    node *root= take_input();
+    // check(root);
+    queue<pair<node *, int>>q;
+    int x; 
+    cin>>x;
+    // cout<<x;
+    if(root) q.push({root, 0});
+   
+    while (!q.empty())
+    {
+       pair<node *, int> pp= q.front();
+        q.pop();
+        node * p=pp.first;
+        int level= pp.second;
+        // if(level)
+        if(level== x)
+        {
+            cout<<p->val<<" ";
+        } 
+         if(p->left) q.push({p->left, level+1});
+         if(p->right) q.push({p->right, level+1});
+           
+    }
+      pair<node *, int> ch=q.back();
+      int level= ch.second;
+      if(x>level) cout<<"Invalid";
+   
+    return 0;
+}
