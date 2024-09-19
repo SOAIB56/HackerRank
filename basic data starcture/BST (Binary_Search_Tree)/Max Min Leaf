@@ -1,0 +1,97 @@
+problem link: https://www.hackerrank.com/contests/assignment-04-a-basic-data-structures-a-batch-03/challenges/max-min-leaf
+
+solution:
+#include<bits/stdc++.h>
+using namespace std;
+class node
+{
+    public:
+    int val;
+    node * left;
+    node * right;
+    node (int val)
+    {
+        this->left= NULL;
+        this->right= NULL;
+        this->val= val;
+    }
+};
+node * take_input()
+{
+    int x; 
+    cin>> x;
+    node *root;
+    if( x== -1) root= NULL;
+    else
+    {
+        root= new node(x);
+    }
+    queue<node *>q;
+    if(root != NULL) q.push(root);
+    while (!q.empty())
+    {
+       node * p=q.front();
+       q.pop();
+
+       int l, r;
+       cin>>l>> r;
+       node *myleft;
+       node *myright;
+
+    
+       if(l==-1) myleft= NULL;
+       if(r==-1) myright= NULL;
+       if(l != -1) 
+       {
+        myleft= new node (l);
+        q.push(myleft);
+       }
+       if(r != -1)
+       {
+        myright= new node (r);
+        q.push(myright);
+       }
+          p->left= myleft;
+       p->right= myright;
+    }
+    return root;
+    
+
+}
+int mx= INT_MIN;
+int mn= INT_MAX;
+void max_min_fun(node* root)
+{
+    if(root ==NULL)
+    {
+        return ;
+    }
+    if(root->left == NULL && root->right  == NULL)
+    {
+        if(root->val >mx)
+            mx= root->val;
+        if(root->val<mn)
+        {
+            mn=root->val;
+        }
+    }
+    
+    max_min_fun(root->left);
+    max_min_fun(root->right);
+   
+}
+void check(node *root)
+{
+    if(root== NULL) return ;
+    check(root->left);
+    check(root->right);
+    cout<<root->val<< " ";
+}
+int main()
+{
+    node *root= take_input();
+    //check(root);
+     max_min_fun(root);
+    cout<<mx<<" "<<mn;
+    return 0;
+}
